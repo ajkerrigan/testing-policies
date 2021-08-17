@@ -1,0 +1,52 @@
+policies:
+
+- name: aws-security-group-open-rule-remediate-remediate-pull
+  resource: aws.security-group
+  metadata:
+    category: [security/access-control]
+    compliance:
+      - type: CIS
+        version: 1.3.0
+        control-mappings: ['5.2']
+      - type: CCM
+        version: 3.0.1
+        control-mappings: [GRM-01]
+    creator: Stacklet
+    severity: high
+    long-description: |
+      This policy will identify AWS security groups which have rules which allow
+      ingress from all IPv4 or IPv6 addresses via 0.0.0.0/0 or ::0/0 and remove
+      the offending rules. The policy will then notify the impacted users. Per
+      security best practices, security group rules should be limited to only
+      the necessary IP CIDRs needed for communication and should not be open to
+      everyone as this presents a large security risk to your infrastructure and
+      may allow attackers to access your environment.
+  mode:
+      type: cloudtrail
+      events:
+        - source: ec2.amazonaws.com
+          event: AuthorizeSecurityGroupIngress
+          ids: "requestParameters.groupId"
+        - source: ec2.amazonaws.com
+          event: AuthorizeSecurityGroupEgress
+          ids: "requestParameters.groupId"
+        - source: ec2.amazonaws.com
+          event: RevokeSecurityGroupEgress
+          ids: "requestParameters.groupId"
+        - source: ec2.amazonaws.com
+          event: RevokeSecurityGroupIngress
+          ids: "requestParameters.groupId"
+  description: |
+    This policy will find security groups open to the world, remove the
+    offending rules, and send a notification to impacted users.
+  filters:
+    - or:
+          - type: ingress
+            Cidr:
+              value: "0.0.0.0/0"
+          - type: ingress
+            CidrV6:
+              value: "::/0"
+  actions:
+   - type: remove-permissions
+     ingress: matched
