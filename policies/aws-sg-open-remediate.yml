@@ -1,6 +1,6 @@
 policies:
 
-- name: aws-security-group-open-rule-remediate-remediate-pull
+- name: aws-security-group-open-rule-aj-remediate
   resource: aws.security-group
   metadata:
     category: [security/access-control]
