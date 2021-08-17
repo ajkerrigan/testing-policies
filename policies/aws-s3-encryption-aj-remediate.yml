@@ -1,0 +1,20 @@
+policies:
+  - name: aws-s3-encryption-aj-remediate
+    resource: aws.s3
+    mode:
+      type: cloudtrail
+      role: custodian-remediations
+      events:
+        - CreateBucket
+        - event: PutBucketEncryption
+          source: s3.amazonaws.com
+          ids: requestParameters.bucketName
+        - event: DeleteBucketEncryption
+          source: s3.amazonaws.com
+          ids: requestParameters.bucketName
+    filters:
+      - type: bucket-encryption
+        state: False
+    actions:
+      - type: set-bucket-encryption
+        crypto: AES256
