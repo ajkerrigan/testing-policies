@@ -48,5 +48,16 @@ policies:
             CidrV6:
               value: "::/0"
   actions:
-   - type: remove-permissions
-     ingress: matched
+    - type: remove-permissions
+      ingress: matched
+    - type: notify
+      template: email.j2
+      subject: Open security groups remediated
+      from: aj@stacklet.io
+      to:
+        - aj@stacklet.io
+      template_format: html
+      transport:
+        type: sqs
+        queue: https://sqs.us-east-2.amazonaws.com/434520683652/stg-stacklet-commshub-messages
+        region: us-east-2
