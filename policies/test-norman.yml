@@ -1,0 +1,207 @@
+#################################################################################
+#
+#   Copyright © 2021 Stacklet, Inc. All rights reserved.
+#   CONFIDENTIAL AND PROPRIETARY INFORMATION OF STACKLET, INC.
+#
+#   This file is provided pursuant to the license terms set forth in the Master
+#   Services Agreement, Proof of Concept Agreement and/or Design Partnership
+#   Agreement signed with Stacklet, Inc., if any, or if no such agreement has been
+#   signed, then pursuant to the 'LICENSE.TXT' file that accompanies this file.
+#
+#################################################################################
+
+
+
+vars:
+
+  # Match security groups with ingress rules that allow inbound traffic:
+  #
+  # - From an IP address outside the 159.127.0.0/16 range
+  # - Over ports 22, 3389 or 1521
+  #
+  # Match ports whether they are listed explicitly or included as part of a
+  # range, including the special 'All...' ranges as shown in the AWS web
+  # console.
+  high_risk_ingress_filter: &high_risk_ingress_filter
+    type: ingress
+    Cidr:
+      op: regex
+      value: '^(?!(159\.127|10\.|192\.168|172\.(1[6-8]|2[0-9]|3[01])\.))'
+    Ports: [22, 3389, 1521]
+
+  norman_risk_ingress_filter: &norman_risk_ingress_filter
+    type: ingress
+    Ports: [2223, 2224]
+
+  # VPC resources with a `security-group` filter only support JMESPath
+  # value matches. For those resources, this filter block mimics the
+  # `ingress` filter above.
+  high_risk_sg_filter: &high_risk_sg_filter
+    type: security-group
+    key: >
+      IpPermissions[?(
+        IpRanges[?!starts_with(CidrIp, '159.127')] && (
+          (IpProtocol || '-1') == '-1'
+          || ((FromPort || `0`) <= `22` && (ToPort || `0`) >= `22`)
+          || ((FromPort || `0`) <= `3389` && (ToPort || `0`) >= `3389`)
+          || ((FromPort || `0`) <= `1521` && (ToPort || `0`) >= `1521`)
+        )
+      )]
+    value: not-null
+
+  mailer-queue: &mailer-queue https://sqs.us-east-1.amazonaws.com/817096147118/stacklet-stacklet-commshub-messages
+
+
+policies:
+
+
+- name: aws-app-elb-public-open-ports-normanTest2
+  resource: aws.app-elb
+  metadata:
+    category: [security/access-control]
+    compliance:
+      - type: CCM
+        version: 3.0.1
+        control-mappings: [GRM-01]
+    creator: Stacklet
+    severity: high
+  description: |
+    This policy will identify internet-facing Application or Network Load Balancers
+    which allow inbound traffic on high-risk ports from unapproved IP ranges.
+  filters:
+    - Scheme: internet-facing
+    - *high_risk_sg_filter
+  actions:
+   - type: notify
+     template: email.j2
+     template_format: html
+     subject: "{{ name }} - [custodian {{ account }} - {{ region }}]"
+     to:
+       - norman.lyon@epsilon.com
+     transport:
+       type: sqs
+       queue: *mailer-queue
+       region: us-east-1
+     hub_report_group:
+       - hourlyEmail
+       - __immediate
+
+
+- name: aws-elb-public-open-ports-normanTest2
+  resource: aws.elb
+  metadata:
+    category: [security/access-control]
+    compliance:
+      - type: CCM
+        version: 3.0.1
+        control-mappings: [GRM-01]
+    creator: Stacklet
+    severity: high
+  description: |
+    This policy will identify internet-facing Classic Load Balancers
+    which allow inbound traffic on high-risk ports from unapproved IP ranges.
+  filters:
+    - Scheme: internet-facing
+    - *high_risk_sg_filter
+  actions:
+   - type: notify
+     template: email.j2
+     template_format: html
+     subject: "{{ name }} - [custodian {{ account }} - {{ region }}]"
+     to:
+       - norman.lyon@epsilon.com
+     transport:
+       type: sqs
+       queue: *mailer-queue
+       region: us-east-1
+     hub_report_group:
+       - hourlyEmail
+       - __immediate
+
+
+- name: aws-ec2-public-open-ports-normanTest2
+  resource: aws.ec2
+  metadata:
+    category: [security/access-control]
+    compliance:
+      - type: CCM
+        version: 3.0.1
+        control-mappings: [GRM-01]
+    creator: Stacklet
+    severity: high
+  description: |
+    This policy will identify public EC2 instances which allow inbound
+    traffic on high-risk ports from unapproved IP ranges.
+  filters:
+    - NetworkInterfaces[].Association.PublicIp: not-null
+    - *high_risk_sg_filter
+  actions:
+   - type: notify
+     template: email.j2
+     template_format: html
+     subject: "{{ name }} - [custodian {{ account }} - {{ region }}]"
+     to:
+       - norman.lyon@epsilon.com
+     transport:
+       type: sqs
+       queue: *mailer-queue
+       region: us-east-1
+     hub_report_group:
+       - hourlyEmail
+       - __immediate
+
+
+- name: aws-security-group-public-open-ports-normanTest2
+  resource: aws.security-group
+  metadata:
+    category: [security/access-control]
+    compliance:
+      - type: CCM
+        version: 3.0.1
+        control-mappings: [GRM-01]
+    creator: Stacklet
+    severity: high
+  description: |
+    This policy will identify security groups which allow inbound
+    traffic on high-risk ports from unapproved IP ranges.
+  filters:
+    - *high_risk_ingress_filter
+  actions:
+   - type: notify
+     template: email.j2
+     template_format: html
+     subject: "{{ name }} - [custodian {{ account }} - {{ region }}]"
+     to:
+       - norman.lyon@epsilon.com
+     transport:
+       type: sqs
+       queue: *mailer-queue
+       region: us-east-1
+     hub_report_group:
+       - hourlyEmail
+       - __immediate
+
+- name: aws-security-group-public-open-ports-normanCloudTrail
+  resource: aws.security-group
+  metadata:
+    category: [security/access-control]
+    compliance:
+      - type: CCM
+        version: 3.0.1
+        control-mappings: [GRM-01]
+    creator: Stacklet
+    severity: high
+  description: |
+    This policy will identify security groups which allow inbound
+    traffic on high-risk ports from unapproved IP ranges.
+  filters:
+    - *norman_risk_ingress_filter
+  mode:
+    type: cloudtrail
+    events:
+      - source: ec2.amazonaws.com
+        event: AuthorizeSecurityGroupIngress
+        ids: "responseElements.securityGroupRuleSet.items[].groupId"
+      - source: ec2.amazonaws.com
+        event: RevokeSecurityGroupIngress
+        ids: "requestParameters.groupId"
