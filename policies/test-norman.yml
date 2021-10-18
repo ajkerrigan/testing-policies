@@ -181,7 +181,7 @@ policies:
        - hourlyEmail
        - __immediate
 
-- name: aws-security-group-public-open-ports-normanCloudTrail
+- name: aws-sg-open-ports-normanCloudTrail
   resource: aws.security-group
   metadata:
     category: [security/access-control]
