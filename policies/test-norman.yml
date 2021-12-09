@@ -194,6 +194,8 @@ policies:
   description: |
     This policy will identify security groups which allow inbound
     traffic on high-risk ports from unapproved IP ranges.
+
+    Tweak desc just to show a new version.
   filters:
     - *norman_risk_ingress_filter
   mode:
