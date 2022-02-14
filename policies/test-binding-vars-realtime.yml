@@ -1,0 +1,21 @@
+policies:
+  - name: aj-jamison-test-binding-vars-realtime
+    resource: aws.security-group
+    mode:
+      type: cloudtrail
+      role: cloudtrail-remediations
+      events:
+        - source: ec2.amazonaws.com
+          event: AuthorizeSecurityGroupIngress
+          ids: "responseElements.securityGroupRuleSet.items[].groupId"
+        - source: ec2.amazonaws.com
+          event: AuthorizeSecurityGroupEgress
+          ids: "responseElements.securityGroupRuleSet.items[].groupId"
+        - source: ec2.amazonaws.com
+          event: RevokeSecurityGroupEgress
+          ids: "responseElements.securityGroupRuleSet.items[].groupId"
+        - source: ec2.amazonaws.com
+          event: RevokeSecurityGroupIngress
+          ids: "responseElements.securityGroupRuleSet.items[].groupId"
+    filters:
+      - GroupName: "{group_name}"
