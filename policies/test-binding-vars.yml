@@ -1,0 +1,5 @@
+policies:
+  - name: aj-jamison-test-binding-vars
+    resource: aws.security-group
+    filters:
+      - GroupName: "{group_name}"
