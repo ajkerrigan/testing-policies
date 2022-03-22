@@ -3,7 +3,6 @@ policies:
     resource: aws.s3
     mode:
       type: cloudtrail
-      role: custodian-remediations
       events:
         - CreateBucket
         - event: PutBucketEncryption
@@ -15,3 +14,6 @@ policies:
     filters:
       - type: bucket-encryption
         state: False
+    tags:
+      - Security
+      - Encryption
