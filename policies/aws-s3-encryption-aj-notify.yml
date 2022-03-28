@@ -1,5 +1,5 @@
 policies:
-  - name: aws-s3-encryption-aj-remediate
+  - name: aws-s3-encryption-aj-notify
     resource: aws.s3
     mode:
       type: cloudtrail
@@ -15,5 +15,11 @@ policies:
       - type: bucket-encryption
         state: False
     actions:
-      - type: set-bucket-encryption
-        crypto: AES256
+      - type: notify
+        assume_role: false
+        subject: "Unencrypted buckets in account {{ account }}"
+        to:
+          - "{notify_to}"
+        transport:
+          type: sqs
+          queue: "{notify_queue}"
