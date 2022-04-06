@@ -20,3 +20,10 @@ policies:
         tag: stacklet_public_access_s3_acl_policy
         op: notify
         days: 14
+      - type: notify
+        slack_template: email.j2
+        to:
+          - "{email_to}"
+        transport:
+          type: sqs
+          queue: "{mailer_queue}"
