@@ -12,18 +12,15 @@ policies:
       - secops
       - "public access"
     filters:
-      - type: global-grants
-        allow_website: false
-        permissions: [READ, READ_ACP]
+      - or:
+        - type: value
+          op: contains
+          value: ajsbx
+        - type: global-grants
+          allow_website: false
+          permissions: [READ, READ_ACP]
     actions:
       - type: mark-for-op
         tag: stacklet_public_access_s3_acl_policy
         op: notify
         days: 14
-      - type: notify
-        slack_template: email.j2
-        to:
-          - "{email_to}"
-        transport:
-          type: sqs
-          queue: "{mailer_queue}"
