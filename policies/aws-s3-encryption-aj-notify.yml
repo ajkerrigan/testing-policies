@@ -24,7 +24,7 @@ policies:
         to_from:
           # url: "{account_recipient_map_s3_url}"
           url: "s3://ajsbx-c7n/account_recipient_map.json"
-          expr: "{account_id}"
+          expr: "'{account_id}'"
           format: json
         transport:
           type: sqs
