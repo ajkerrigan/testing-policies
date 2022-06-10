@@ -22,9 +22,11 @@ policies:
         slack_template: slack.j2
         assume_role: false
         to_from:
-          url: "{account_recipient_map_s3_url}"
+          # url: "{account_recipient_map_s3_url}"
+          url: "s3://ajsbx-c7n/account_recipient_map.json"
           expr: "{account_id}"
           format: json
         transport:
           type: sqs
-          queue: "{notify_queue}"
+          # queue: "{notify_queue}"
+          queue: "https://sqs.us-east-2.amazonaws.com/613702428514/ajsbx-stacklet-commshub-messages"
