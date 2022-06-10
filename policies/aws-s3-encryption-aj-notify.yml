@@ -18,8 +18,13 @@ policies:
       - type: notify
         assume_role: false
         subject: "Unencrypted buckets in account {{ account }}"
-        to:
-          - "{notify_to}"
+        template: email.j2
+        slack_template: slack.j2
+        assume_role: false
+        to_from:
+          url: "{account_recipient_map_s3_url}"
+          expr: "{account_id}"
+          format: json
         transport:
           type: sqs
           queue: "{notify_queue}"
