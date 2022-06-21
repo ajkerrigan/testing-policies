@@ -1,0 +1,30 @@
+policies:
+  - name: aws-s3-encryption-aj-notify-jira
+    resource: aws.s3
+    mode:
+      type: cloudtrail
+      events:
+        - CreateBucket
+        - event: PutBucketEncryption
+          source: s3.amazonaws.com
+          ids: requestParameters.bucketName
+        - event: DeleteBucketEncryption
+          source: s3.amazonaws.com
+          ids: requestParameters.bucketName
+    filters:
+      - type: bucket-encryption
+        state: False
+    actions:
+      - type: notify
+        assume_role: false
+        subject: "Unencrypted buckets in account {{ account }}"
+        template: email.j2
+        slack_template: slack.j2
+        assume_role: false
+        hub_report_group:
+          - jira
+        to:
+          - placeholder
+        transport:
+          type: sqs
+          queue: "https://sqs.us-east-2.amazonaws.com/613702428514/ajsbx-stacklet-commshub-messages"
