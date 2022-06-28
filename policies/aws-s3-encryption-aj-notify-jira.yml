@@ -11,6 +11,9 @@ policies:
         - event: DeleteBucketEncryption
           source: s3.amazonaws.com
           ids: requestParameters.bucketName
+    metadata:
+      due-date: 14
+      long-description: This is a notifier policy.
     filters:
       - type: bucket-encryption
         state: False
