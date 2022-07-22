@@ -1,0 +1,20 @@
+policies:
+  - name: aws-s3-encryption-aj-tag
+    resource: aws.s3
+    mode:
+      type: cloudtrail
+      events:
+        - CreateBucket
+        - event: PutBucketEncryption
+          source: s3.amazonaws.com
+          ids: requestParameters.bucketName
+        - event: DeleteBucketEncryption
+          source: s3.amazonaws.com
+          ids: requestParameters.bucketName
+    filters:
+      - type: bucket-encryption
+        state: False
+    actions:
+      - type: tag
+        key: ajtest
+        value: 'myvar: {myvar}'
