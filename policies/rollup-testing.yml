@@ -1,0 +1,10 @@
+policies:
+    - name: recipient-rollup-sqs
+      resource: aws.sqs
+      filters:
+        - Name: ajtest-rollup
+
+    - name: recipient-rollup-s3
+      resource: aws.s3
+      filters:
+        - Name: ajtest-rollup
