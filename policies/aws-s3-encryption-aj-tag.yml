@@ -17,4 +17,4 @@ policies:
     actions:
       - type: tag
         key: ajtest
-        value: 'myvar: {myvar}'
+        value: 'myvar: {myvar} is the best'
