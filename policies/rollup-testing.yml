@@ -2,7 +2,10 @@ policies:
     - name: recipient-rollup-sqs
       resource: aws.sqs
       filters:
-        - Name: ajtest-rollup
+        - type: value
+          key: QueueUrl
+          op: contains
+          value: ajtest-rollup
 
     - name: recipient-rollup-s3
       resource: aws.s3
