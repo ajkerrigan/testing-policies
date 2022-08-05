@@ -10,6 +10,9 @@ policies:
         - type: notify
           to:
             - resource-owner
+          template: email.j2
+          owner_absent_contact:
+            - 'aj+absent@stacklet.io'
           assume_role: false
           hub_report_group: recipientRollup
           subject: 'rollup test: sqs'
@@ -26,6 +29,9 @@ policies:
         - type: notify
           to:
             - resource-owner
+          template: email.j2
+          owner_absent_contact:
+            - 'aj+absent@stacklet.io'
           assume_role: false
           hub_report_group: recipientRollup
           subject: 'rollup test: sqs'
