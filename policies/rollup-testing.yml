@@ -38,7 +38,7 @@ policies:
             - 'aj+absent@stacklet.io'
           assume_role: false
           hub_report_group: recipientRollup
-          subject: 'rollup test: sqs'
+          subject: 'rollup test: s3'
           transport:
             type: sqs
             queue: 'https://sqs.us-east-2.amazonaws.com/613702428514/ajsbx-stacklet-commshub-messages'
