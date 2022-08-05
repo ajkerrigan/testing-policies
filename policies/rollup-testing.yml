@@ -6,8 +6,29 @@ policies:
           key: QueueUrl
           op: contains
           value: ajtest-rollup
+      actions:
+        - type: notify
+          to:
+            - resource-owner
+          assume_role: false
+          hub_report_group: recipientRollup
+          subject: 'rollup test: sqs'
+          transport:
+            type: sqs
+            queue: 'https://sqs.us-east-2.amazonaws.com/613702428514/ajsbx-stacklet-commshub-messages'
+
 
     - name: recipient-rollup-s3
       resource: aws.s3
       filters:
         - Name: ajtest-rollup
+      actions:
+        - type: notify
+          to:
+            - resource-owner
+          assume_role: false
+          hub_report_group: recipientRollup
+          subject: 'rollup test: sqs'
+          transport:
+            type: sqs
+            queue: 'https://sqs.us-east-2.amazonaws.com/613702428514/ajsbx-stacklet-commshub-messages'
