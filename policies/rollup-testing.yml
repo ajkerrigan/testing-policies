@@ -1,6 +1,8 @@
 policies:
     - name: recipient-rollup-sqs
       resource: aws.sqs
+      tags:
+        - "rollup-testing"
       filters:
         - type: value
           key: QueueUrl
@@ -23,6 +25,8 @@ policies:
 
     - name: recipient-rollup-s3
       resource: aws.s3
+      tags:
+        - "rollup-testing"
       filters:
         - Name: ajtest-rollup
       actions:
