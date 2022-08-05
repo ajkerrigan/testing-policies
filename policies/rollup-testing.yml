@@ -1,6 +1,9 @@
 policies:
     - name: recipient-rollup-sqs
       resource: aws.sqs
+      description: "sqs rollup testing"
+      metadata:
+        severity: low
       tags:
         - "rollup-testing"
       filters:
@@ -25,6 +28,9 @@ policies:
 
     - name: recipient-rollup-s3
       resource: aws.s3
+      description: "s3 rollup testing"
+      metadata:
+        severity: low
       tags:
         - "rollup-testing"
       filters:
