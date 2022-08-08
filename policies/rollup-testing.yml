@@ -23,7 +23,7 @@ policies:
           subject: 'rollup test: sqs'
           transport:
             type: sqs
-            queue: 'https://sqs.us-east-2.amazonaws.com/613702428514/ajsbx-stacklet-commshub-messages'
+            queue: '{commshub_queue_url}'
 
 
     - name: recipient-rollup-s3
@@ -47,4 +47,4 @@ policies:
           subject: 'rollup test: s3'
           transport:
             type: sqs
-            queue: 'https://sqs.us-east-2.amazonaws.com/613702428514/ajsbx-stacklet-commshub-messages'
+            queue: '{commshub_queue_url}'
