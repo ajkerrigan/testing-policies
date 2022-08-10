@@ -18,7 +18,6 @@ policies:
           template: email.j2
           owner_absent_contact:
             - 'aj+absent@stacklet.io'
-          assume_role: false
           hub_report_group: recipientRollup
           subject: 'rollup test: sqs'
           transport:
@@ -42,7 +41,6 @@ policies:
           template: email.j2
           owner_absent_contact:
             - 'aj+absent@stacklet.io'
-          assume_role: false
           hub_report_group: recipientRollup
           subject: 'rollup test: s3'
           transport:
