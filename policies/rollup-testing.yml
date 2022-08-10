@@ -15,7 +15,7 @@ policies:
         - type: notify
           to:
             - resource-owner
-          template: email.j2
+          template: email-testing-delete-me.j2
           owner_absent_contact:
             - 'aj+absent@stacklet.io'
           hub_report_group: recipientRollup
@@ -38,7 +38,7 @@ policies:
         - type: notify
           to:
             - resource-owner
-          template: email.j2
+          template: email-testing-delete-me.j2
           owner_absent_contact:
             - 'aj+absent@stacklet.io'
           hub_report_group: recipientRollup
