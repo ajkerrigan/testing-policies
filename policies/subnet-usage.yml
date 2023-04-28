@@ -1,0 +1,8 @@
+policies:
+  - name: aws-subnet-addresses
+    resource: aws.subnet
+    filters:
+      - type: value
+        key: AvailableIpAddressCount
+        op: greater-than
+        value: 0
