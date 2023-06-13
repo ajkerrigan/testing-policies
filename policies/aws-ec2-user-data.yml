@@ -3,5 +3,4 @@ policies:
     resource: aws.ec2
     filters:
       - type: user-data
-        key: "@"
-        value_path: '@."c7n:user-data"'
+        value: present
