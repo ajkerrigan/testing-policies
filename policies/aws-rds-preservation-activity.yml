@@ -1,0 +1,11 @@
+policies:
+  - name: aws-rds-prereservation-activity
+    resource: aws.account
+    description: Tracks AWS RDS pre-reservation purchase quotations
+    mode:
+      type: cloudtrail
+      role: custodian-remediations
+      events:
+        - source: rds.amazonaws.com
+          event: DescribeReservedDBInstancesOfferings
+          ids: userIdentity.accountId
