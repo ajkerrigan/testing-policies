@@ -1,0 +1,9 @@
+policies:
+  - name: ajtest-sqs-create-queue
+    resource: aws.sqs
+    mode:
+      type: cloudtrail
+      events:
+        - source: sqs.amazonaws.com
+          ids: responseElements.queueUrl
+          event: CreateQueue
