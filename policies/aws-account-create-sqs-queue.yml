@@ -1,5 +1,5 @@
 policies:
-  - name: ajtest-sqs-createqueue
+  - name: ajtest-account-create-sqs-queue
     resource: aws.account
     mode:
       type: cloudtrail
