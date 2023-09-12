@@ -7,3 +7,6 @@ policies:
         - source: sqs.amazonaws.com
           ids: responseElements.queueUrl
           event: CreateQueue
+    metadata:
+      account_alias: '{account}'
+      account_ID: '{account_id}'
