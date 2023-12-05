@@ -1,0 +1,8 @@
+policies:
+  - name: aws-ec2-sqlserver-ami
+    resource: aws.ec2
+    filters:
+      - type: image
+        key: Name
+        op: glob
+        value: "*SQL*"
