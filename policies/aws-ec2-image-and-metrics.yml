@@ -18,7 +18,7 @@ policies:
         value: 0
         missing-value: 0
       - type: metrics
-        name: NumberOfMessagesReceived
+        name: CPUUtilization
         statistics: p90
         op: ge
         value: 0
