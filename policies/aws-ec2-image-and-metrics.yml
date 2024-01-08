@@ -1,0 +1,25 @@
+policies:
+  - name: aws-ec2-image-metrics-inventory-inform
+    resource: aws.ec2
+    filters:
+      - type: image
+        key: ImageId
+        value: present
+      - type: metrics
+        name: NetworkIn
+        statistics: Sum
+        op: ge
+        value: 0
+        missing-value: 0
+      - type: metrics
+        name: NetworkOut
+        statistics: Sum
+        op: ge
+        value: 0
+        missing-value: 0
+      - type: metrics
+        name: NumberOfMessagesReceived
+        statistics: p90
+        op: ge
+        value: 0
+        missing-value: 0
