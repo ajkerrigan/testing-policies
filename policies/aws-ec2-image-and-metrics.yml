@@ -5,7 +5,7 @@ policies:
       - type: value
         key: account_id
         op: in
-        value: {target_accounts}
+        value: "{target_accounts}"
     filters:
       - type: image
         key: ImageId
