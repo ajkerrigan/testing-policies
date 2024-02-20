@@ -1,6 +1,11 @@
 policies:
   - name: aws-ec2-image-metrics-inventory-inform
     resource: aws.ec2
+    conditions:
+      - type: value
+        key: account_id
+        op: in
+        value: {target_accounts}
     filters:
       - type: image
         key: ImageId
