@@ -1,9 +1,3 @@
 policies:
   - name: ajtest-account-create-sqs-queue
-    resource: aws.account
-    mode:
-      type: cloudtrail
-      events:
-        - source: sqs.amazonaws.com
-          ids: userIdentity.accountId
-          event: CreateQueue
+    resource: aws.sqs
