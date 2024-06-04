@@ -1,0 +1,14 @@
+policies:
+  - name: ajtest-sqs-metrics
+    resource: aws.sqs
+    filters:
+      - type: value
+        key: QueueUrl
+        op: glob
+        value: "*ajtest*"
+      - type: metrics
+        name: NumberOfMessagesReceived
+        statistics: Sum
+        op: le
+        value: 1
+        missing-value: 0
