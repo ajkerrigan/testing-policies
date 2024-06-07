@@ -16,7 +16,6 @@ policies:
         state: False
     actions:
       - type: notify
-        assume_role: false
         subject: "Unencrypted buckets in account {{ account }}"
         template: email.j2
         slack_template: slack.j2
