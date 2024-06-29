@@ -1,0 +1,5 @@
+controls:
+  - name: all-sqs
+    queries:
+      - query: select _rid from aws_sqs
+        resource_type: aws.sqs
