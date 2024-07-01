@@ -1,5 +1,0 @@
-controls:
-  - name: all-ebs
-    queries:
-      - query: select _rid from aws_ebs
-        resource_type: aws.ebs
