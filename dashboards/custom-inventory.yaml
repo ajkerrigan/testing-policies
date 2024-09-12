@@ -1,0 +1,24 @@
+dashboards:
+  - title: Custom Inventory
+    key: custom-inventory
+    metric: Inventory
+    description:
+      A custom dashboard showing resource inventory over time, independent of
+      compliance with specific policy frameworks.
+    sections:
+      - title: EBS
+        key: ebs
+        sections:
+          - title: All EBS volumes
+            numeral: "1.1"
+            key: ebs-1
+            controls:
+              - all-ebs
+      - title: SQS
+        key: sqs
+        sections:
+          - title: All SQS queues
+            numeral: "2.1"
+            key: sqs-1
+            controls:
+              - all-sqs
