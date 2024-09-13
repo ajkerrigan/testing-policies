@@ -1,0 +1,6 @@
+{
+  "custom-aws": {
+    "dashboard-keys": ["custom-inventory"],
+    "description": "Custom inventory dashboards"
+  }
+}
