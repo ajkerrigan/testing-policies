@@ -1,9 +1,18 @@
+controls:
+  - name: all-sqs
+    queries:
+      - query: select _rid from aws_sqs
+        resource_type: aws.sqs
+  - name: all-ebs
+    queries:
+      - query: select _rid from aws_ebs
+        resource_type: aws.ebs
+
 dashboards:
   - title: Custom Inventory
     key: custom-inventory
     metric: Inventory
-    description:
-      A custom dashboard showing resource inventory over time, independent of
+    description: A custom dashboard showing resource inventory over time, independent of
       compliance with specific policy frameworks.
     sections:
       - title: EBS
@@ -12,6 +21,7 @@ dashboards:
           - title: All EBS volumes
             numeral: "1.1"
             key: ebs-1
+            severity: low
             controls:
               - all-ebs
       - title: SQS
@@ -20,5 +30,6 @@ dashboards:
           - title: All SQS queues
             numeral: "2.1"
             key: sqs-1
+            severity: low
             controls:
               - all-sqs
