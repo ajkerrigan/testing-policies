@@ -1,5 +1,5 @@
 policies:
-  - name: ae-s3-object-access-notification
+  - name: ajtest-s3-object-access-notification
     resource: aws.s3
     mode:
       type: cloudtrail
@@ -16,19 +16,3 @@ policies:
         - source: s3.amazonaws.com
           event: DeleteObjects
           ids: requestParameters.bucketName
-      pattern:
-        detail:
-          requestParameters:
-            bucketName:
-              - sap-stacklet-notification-testing
-          userIdentity:
-            arn:
-              - anything-but:
-                  - arn:aws:iam::231577314483:user/Migration_DR_user_dev
-            sessionContext:
-              sessionIssuer:
-                arn:
-                  - anything-but:
-                      - arn:aws:iam::002350437580:role/s3arch-dev-ZappaLambdaExecutionRole
-                      - arn:aws:iam::231577314483:role/AE-AWS-TECHOPS
-                      - arn:aws:iam::231577314483:role/AE-AWS-SACWFPlan
