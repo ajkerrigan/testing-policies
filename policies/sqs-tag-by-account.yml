@@ -2,7 +2,9 @@ policies:
   - name: ajtest-sqs-tag-by-account
     resource: aws.sqs
     filters:
-      - "'{Owner}'": present
+      - type: value
+        key: "'{Owner}'"
+        value: present
       - type: glob
         key: QueueUrl
         op: glob
