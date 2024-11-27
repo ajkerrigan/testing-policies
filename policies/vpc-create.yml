@@ -1,0 +1,9 @@
+policies:
+- name: ajtest-vpc-create
+  resource: aws.vpc
+  mode:
+    type: cloudtrail
+    events:
+    - event: CreateVpc
+      ids: responseElements.vpc.vpcId
+      source: ec2.amazonaws.com
