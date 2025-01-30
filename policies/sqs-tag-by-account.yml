@@ -12,4 +12,4 @@ policies:
     actions:
       - type: tag
         key: Owner
-        value: "'{Owner[{account_id}]}'"
+        value: "{Owner[{account_id}]}"
