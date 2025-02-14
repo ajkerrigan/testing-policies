@@ -1,0 +1,10 @@
+policies:
+  - name: ajtest-account-condition-var
+    resource: aws.sqs
+    conditions:
+      - account.name: ajsbx
+    filters:
+      - type: value
+        key: QueueUrl
+        op: glob
+        value: "*ajtest"
