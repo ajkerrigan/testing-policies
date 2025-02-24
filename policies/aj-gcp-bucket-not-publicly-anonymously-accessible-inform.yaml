@@ -1,0 +1,44 @@
+policies:
+- name: aj-gcp-bucket-not-publicly-anonymously-accessible-inform
+  resource: gcp.bucket
+  description: Make sure that the IAM policy associated with your Google Cloud Storage
+    buckets is restricting anonymous and/or public access.
+  mode:
+    type: pull
+  metadata:
+    autoremediable: false
+    category:
+    - compliance/cis
+    classification:
+    - pillar: compliance
+      scope: 1.3.0
+      segment: cis
+      severity: medium
+    - pillar: security
+      scope: publicly-accessible
+      segment: access-control
+      severity: medium
+    compliance:
+    - type: CIS
+      control-mappings:
+      - 5.1
+      version: 1.3.0
+    creator: Stacklet
+    recommended_actions:
+      remediation:
+      - name: Provider Docs
+        description: Remove public access from your storage buckets
+        type: link
+        content: https://cloud.google.com/storage/docs/public-access-prevention
+    remediation_effort: high
+    remediation_risk: medium
+    severity: high
+  filters:
+  - type: iam-policy
+    doc:
+      key: bindings[*].members[]
+      op: intersect
+      value:
+      - allUsers
+      - allAuthenticatedUsers
+
