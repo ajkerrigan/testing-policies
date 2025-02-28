@@ -10,3 +10,17 @@ policies:
     metadata:
       account_alias: '{account}'
       account_ID: '{account_id}'
+    actions:
+      - type: notify
+        subject: "Queue created in {{ account }}"
+        template: email.j2
+        slack_template: slack.j2
+        assume_role: false
+        to_from:
+          url: "s3://ajsbx-c7n/account_recipient_map.json"
+          expr: |
+            "{account_id}" || ['aj@speckledmonkey.com']
+          format: json
+        transport:
+          type: sqs
+          queue: "{notify_queue}"
