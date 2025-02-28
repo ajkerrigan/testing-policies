@@ -28,5 +28,5 @@ policies:
           format: json
         transport:
           type: sqs
-          # queue: "{notify_queue}"
-          queue: "https://sqs.us-east-2.amazonaws.com/613702428514/ajsbx-stacklet-commshub-messages"
+          queue: "{notify_queue}"
+          # queue: "https://sqs.us-east-2.amazonaws.com/613702428514/ajsbx-stacklet-commshub-messages"
