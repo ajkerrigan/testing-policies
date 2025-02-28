@@ -16,7 +16,8 @@ policies:
         template: email.j2
         slack_template: slack.j2
         assume_role: '{assume_role}'
-        to: aj@stacklet.io
+        to:
+          - aj@stacklet.io
         transport:
           type: sqs
           queue: "{notify_queue}"
