@@ -15,7 +15,7 @@ policies:
         subject: "Queue created in {{ account }}"
         template: email.j2
         slack_template: slack.j2
-        assume_role: '{assume_role}'
+        assume_role: true
         to:
           - aj@stacklet.io
         transport:
