@@ -1,23 +1,42 @@
+vars:
+  cloudtrail-mode: &cloudtrail-mode
+    type: cloudtrail
+    events:
+      - source: sqs.amazonaws.com
+        ids: responseElements.queueUrl
+        event: CreateQueue
+
+  notify-action: &notify-action
+    type: notify
+    subject: "Queue created in {{ account_id }}"
+    template: email.j2
+    slack_template: slack.j2
+    to:
+      - aj@stacklet.io
+    transport:
+      type: sqs
+      queue: "{notify_queue}"
+
 policies:
-  - name: ajtest-sqs-create-queue
+  - name: ajtest-sqs-create-queue-notify-rtc-no-assume
     resource: aws.sqs
-    mode:
-      type: cloudtrail
-      events:
-        - source: sqs.amazonaws.com
-          ids: responseElements.queueUrl
-          event: CreateQueue
-    metadata:
-      account_alias: '{account}'
-      account_ID: '{account_id}'
+    mode: *cloudtrail-mode
     actions:
-      - type: notify
-        subject: "Queue created in {{ account }}"
-        template: email.j2
-        slack_template: slack.j2
+      - <<: *notify-action
         assume_role: false
-        to:
-          - aj@stacklet.io
-        transport:
-          type: sqs
-          queue: "{notify_queue}"
+  - name: ajtest-sqs-create-queue-notify-rtc-assume
+    resource: aws.sqs
+    mode: *cloudtrail-mode
+    actions:
+      - <<: *notify-action
+        assume_role: true
+  - name: ajtest-sqs-create-queue-notify-inform-no-assume
+    resource: aws.sqs
+    actions:
+      - <<: *notify-action
+        assume_role: false
+  - name: ajtest-sqs-create-queue-notify-inform-assume
+    resource: aws.sqs
+    actions:
+      - <<: *notify-action
+        assume_role: true
