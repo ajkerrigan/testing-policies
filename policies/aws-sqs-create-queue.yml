@@ -18,6 +18,11 @@ vars:
       queue: "{notify_queue}"
 
 policies:
+  - name: ajtest-sqs-create-queue-notify-rtc
+    resource: aws.sqs
+    mode: *cloudtrail-mode
+    actions:
+      - <<: *notify-action
   - name: ajtest-sqs-create-queue-notify-rtc-no-assume
     resource: aws.sqs
     mode: *cloudtrail-mode
@@ -30,6 +35,10 @@ policies:
     actions:
       - <<: *notify-action
         assume_role: true
+  - name: ajtest-sqs-create-queue-notify-inform
+    resource: aws.sqs
+    actions:
+      - <<: *notify-action
   - name: ajtest-sqs-create-queue-notify-inform-no-assume
     resource: aws.sqs
     actions:
