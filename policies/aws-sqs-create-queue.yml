@@ -21,31 +21,37 @@ policies:
   - name: ajtest-sqs-create-queue-notify-rtc
     resource: aws.sqs
     mode: *cloudtrail-mode
+    description: we spotted a new queue over yonder
     actions:
       - <<: *notify-action
   - name: ajtest-sqs-create-queue-notify-rtc-no-assume
     resource: aws.sqs
     mode: *cloudtrail-mode
+    description: we spotted a new queue over yonder
     actions:
       - <<: *notify-action
         assume_role: false
   - name: ajtest-sqs-create-queue-notify-rtc-assume
     resource: aws.sqs
     mode: *cloudtrail-mode
+    description: we spotted a new queue over yonder
     actions:
       - <<: *notify-action
         assume_role: true
   - name: ajtest-sqs-create-queue-notify-inform
     resource: aws.sqs
+    description: we spotted a new queue over yonder
     actions:
       - <<: *notify-action
   - name: ajtest-sqs-create-queue-notify-inform-no-assume
     resource: aws.sqs
+    description: we spotted a new queue over yonder
     actions:
       - <<: *notify-action
         assume_role: false
   - name: ajtest-sqs-create-queue-notify-inform-assume
     resource: aws.sqs
+    description: we spotted a new queue over yonder
     actions:
       - <<: *notify-action
         assume_role: true
