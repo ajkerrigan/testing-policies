@@ -1,0 +1,6 @@
+policies:
+- name: aws-emr-inventory-inform
+  resource: aws.emr
+
+- name: aws-sagemaker-job-inventory-inform
+  resource: aws.sagemaker-job
