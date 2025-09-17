@@ -5,6 +5,7 @@ policies:
   - Owners: []
   - ExecutableUsers:
     - self
+    - all
   - IncludeDisabled: true
   - IncludeDeprecated: true
   - ImageIds: "{image_ids}"
