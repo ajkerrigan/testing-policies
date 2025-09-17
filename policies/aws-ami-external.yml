@@ -1,0 +1,10 @@
+policies:
+- name: aws-ami-external-inform
+  resource: aws.ami
+  query:
+  - Owners: []
+  - ExecutableUsers:
+    - self
+  - IncludeDisabled: true
+  - IncludeDeprecated: true
+  - ImageIds: "{image_ids}"
