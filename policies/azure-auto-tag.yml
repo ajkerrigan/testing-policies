@@ -1,0 +1,11 @@
+policies:
+  - name: ajtest-azure-auto-tag-creator
+    mode:
+      type: azure-event-grid
+      events: ['VmWrite', 'StorageWrite']
+    resource: azure.armresource
+    description: |
+      Tag all new VMs and StorageAccounts with the 'Creator Email' tag.
+    actions:
+     - type: auto-tag-user
+       tag: CreatorEmail
