@@ -1,0 +1,13 @@
+policies:
+- name: gcp-disk-label-sbx
+  resource: gcp.disk
+  filters:
+  - name: ajtest
+  - type: value
+    key: labels.env
+    op: ne
+    value: sandbox
+  actions:
+  - type: set-labels
+    labels:
+      env: sandbox
