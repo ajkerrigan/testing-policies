@@ -1,0 +1,26 @@
+policies:
+  - name: aws-org-account-throttle-ec2
+    resource: aws.org-account
+    filters:
+      - type: value
+        key: Id
+        op: in
+        value: "{throttle_account_ids}"
+      - type: policy
+        policy-type: SERVICE_CONTROL_POLICY
+        attrs:
+          - Name: BlockEC2
+        count: 0
+    actions:
+      - type: set-policy
+        policy-type: SERVICE_CONTROL_POLICY
+        name: BlockEC2
+        contents:
+          Version: "2012-10-17"
+          Statement:
+            - Sid: BlockEC2
+              Effect: Deny
+              Action:
+                - "ec2:*"
+              Resource:
+                - "*"
