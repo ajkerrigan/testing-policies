@@ -13,12 +13,13 @@ policies:
           ids: requestParameters.bucketName
       pattern:
         detail:
-          userIdentity.sessionContext.sessionIssuer.arn:
+          userIdentity.sessionContext.sessionIssuer.userName:
             - anything-but:
-                wildcard: "*:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AWSAdministratorAccess_*"
+                wildcard: "AWSReservedSSO_AWSAdministratorAccess_*"
     filters:
       - type: bucket-encryption
         state: False
+      - tag:ajtest: absent
     actions:
       - type: tag
         key: ajtest
