@@ -12,12 +12,12 @@ policies:
           source: s3.amazonaws.com
           ids: requestParameters.bucketName
       pattern:
-        userIdentity:
-          sessionContext:
-            sessionIssuer:
-              userName:
-                - anything-but:
-                    wildcard: "AWSReservedSSO_AWSAdministratorAccess_*"
+        detail:
+          userIdentity:
+            sessionContext:
+              sessionIssuer:
+                userName:
+                  - anything-but: "AWSReservedSSO_AWSAdministratorAccess_39201616215f5da0"
     filters:
       - type: bucket-encryption
         state: False
