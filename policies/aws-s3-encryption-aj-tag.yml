@@ -15,7 +15,7 @@ policies:
         detail:
           userIdentity.sessionContext.sessionIssuer.userName:
             - anything-but:
-                wildcard: "AWSReservedSSO_AWSAdministratorAccess_*"
+                wildcard: "ajsbx-*"
     filters:
       - type: bucket-encryption
         state: False
