@@ -11,6 +11,10 @@ policies:
         - event: DeleteBucketEncryption
           source: s3.amazonaws.com
           ids: requestParameters.bucketName
+    pattern:
+      detail:
+        userIdentity.sessionContext.sessionIssuer.arn:
+          - wildcard: ":role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AWSAdministratorAccess_*"
     filters:
       - type: bucket-encryption
         state: False
