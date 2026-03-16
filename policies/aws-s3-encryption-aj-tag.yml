@@ -15,7 +15,7 @@ policies:
         detail:
           userIdentity.sessionContext.sessionIssuer.arn:
             - anything-but:
-                wildcard: ":role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AWSAdministratorAccess_*"
+                wildcard: "*:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AWSAdministratorAccess_*"
     filters:
       - type: bucket-encryption
         state: False
