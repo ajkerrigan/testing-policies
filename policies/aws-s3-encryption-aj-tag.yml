@@ -13,9 +13,12 @@ policies:
           ids: requestParameters.bucketName
       pattern:
         detail:
-          userIdentity.sessionContext.sessionIssuer.userName:
-            - anything-but:
-                wildcard: "AWSReservedSSO_AWSAdministratorAccess_*"
+          userIdentity:
+            sessionContext:
+              sessionIssuer:
+                userName:
+                  - anything-but:
+                      wildcard: "AWSReservedSSO_AWSAdministratorAccess_*"
     filters:
       - type: bucket-encryption
         state: False
