@@ -11,11 +11,6 @@ policies:
         - event: DeleteBucketEncryption
           source: s3.amazonaws.com
           ids: requestParameters.bucketName
-      pattern:
-        detail:
-          userIdentity.sessionContext.sessionIssuer.userName:
-            - anything-but:
-                wildcard: "ajsbx-*"
     filters:
       - type: bucket-encryption
         state: False
