@@ -2,8 +2,8 @@ policies:
   - name: aws-efs-create-inform
     resource: aws.efs
     mode:
-      - type: cloudtrail
-        events:
-          - event: CreateFileSystem
-            ids: responseElements.fileSystemId
-            source: elasticfilesystem.amazonaws.com
+      type: cloudtrail
+      events:
+        - event: CreateFileSystem
+          ids: responseElements.fileSystemId
+          source: elasticfilesystem.amazonaws.com
